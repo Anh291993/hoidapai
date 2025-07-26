@@ -24,22 +24,18 @@
             width: 100%;
         }
 
-        /* === START: CSS ĐÃ SỬA ĐỔI VÀ BỔ SUNG === */
-
         .sidebar-desktop {
             width: 280px;
             flex-shrink: 0;
-            /* Thay đổi màu nền theo ảnh mẫu */
             background-color: #1A2C5A;
             color: #dee2e6;
             padding: 1rem;
             display: flex;
             flex-direction: column;
-            transition: width 0.3s ease; /* Hiệu ứng co giãn */
-            position: relative; /* Để định vị nút thu gọn */
+            transition: width 0.3s ease;
+            position: relative;
         }
         
-        /* CSS cho nút thu gọn sidebar */
         #sidebar-toggle-btn {
             position: absolute;
             top: 60px;
@@ -54,13 +50,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 1100; /* Đảm bảo nút nổi lên trên */
+            z-index: 1100;
         }
         #sidebar-toggle-btn:hover {
             background-color: #2C3E70;
         }
 
-        /* Trạng thái khi sidebar bị thu gọn */
         .sidebar-desktop.collapsed {
             width: 80px;
         }
@@ -71,7 +66,7 @@
             display: none;
         }
         .sidebar-desktop.collapsed .sidebar-nav .nav-link i.fa-fw {
-            margin-right: 0; /* Bỏ margin khi thu gọn */
+            margin-right: 0;
             font-size: 1.25rem;
         }
         .sidebar-desktop.collapsed .new-chat-btn {
@@ -92,10 +87,9 @@
             transition: background-color 0.2s;
         }
         .sidebar-nav .nav-link:hover {
-             background-color: #2C3E70; /* Màu hover tối hơn */
+             background-color: #2C3E70;
              color: #fff;
         }
-        /* Thay đổi màu active theo ảnh mẫu */
         .sidebar-nav .nav-link.active {
              background-color: #D92D20;
              color: #fff;
@@ -119,10 +113,9 @@
             background-color: #ffffff;
             max-height: 100vh;
             overflow: hidden;
-            position: relative; /* Cần cho việc định vị logo */
+            position: relative;
         }
 
-        /* CSS cho logo */
         #logo-container {
             position: absolute;
             top: 15px;
@@ -130,13 +123,11 @@
             z-index: 10;
         }
         #logo-container img {
-            height: 40px; /* Điều chỉnh chiều cao logo nếu cần */
+            height: 40px;
         }
         
-        /* === END: CSS ĐÃ SỬA ĐỔI VÀ BỔ SUNG === */
-        
         .mobile-header {
-            background-color: #1A2C5A; /* Đồng bộ màu mobile header */
+            background-color: #1A2C5A;
             color: white;
         }
         .mobile-header .btn-primary {
@@ -150,8 +141,8 @@
          }
 
         #chat-title-container {
-            background-color: #ffffff; /* Đổi nền header thành trắng */
-            border-bottom: 1px solid #dee2e6; /* Giữ lại đường viền */
+            background-color: #ffffff;
+            border-bottom: 1px solid #dee2e6;
         }
         #chat-title-desktop, #chat-title-mobile {
             font-size: 1.1rem;
@@ -213,8 +204,8 @@
         #send-button { padding: 0.6rem 1rem; }
 
         #voice-input-button.is-listening i {
-            color: #dc3545; /* Màu đỏ */
-            animation: pulse 1.5s infinite; /* Hiệu ứng nhấp nháy */
+            color: #dc3545;
+            animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
@@ -223,10 +214,9 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* === CSS MỚI CHO POPUP (MODAL) === */
         #contributionModal .modal-dialog {
-            max-width: 80%; /* Chiều rộng của popup */
-            height: 90vh; /* Chiều cao của popup */
+            max-width: 80%;
+            height: 90vh;
         }
         #contributionModal .modal-content {
             height: 100%;
@@ -291,7 +281,7 @@
             </div>
 
             <div id="chat-box">
-                </div>
+            </div>
 
             <div class="input-area">
                 <div class="input-group">
@@ -317,9 +307,12 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body sidebar-nav" id="chat-list-mobile">
+            <a class="nav-link chat-topic-link" href="#" data-webhook-url="https://n8nhome.chatpro.io.vn/webhook/hoi-dap-kinh-nghiem-van-hanh" data-bs-dismiss="offcanvas">
+                <i class="fas fa-clipboard-list fa-fw"></i> <span>Kinh nghiệm vận hành nghề thí nghiệm</span>
+            </a>
             <hr class="text-secondary">
             <nav class="nav flex-column mt-auto">
-                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contributionModal">
+                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contributionModal" data-bs-dismiss="offcanvas">
                          <i class="fas fa-feather-alt fa-fw"></i> <span>Đóng góp kinh nghiệm</span></a>
                  <a class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a>
             </nav>
@@ -349,13 +342,14 @@
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.querySelector('.sidebar-desktop');
             const toggleBtn = document.getElementById('sidebar-toggle-btn');
-            const toggleBtnIcon = toggleBtn.querySelector('i');
+            const contributionModal = document.getElementById('contributionModal');
 
+            // Xử lý sự kiện click cho nút thu gọn sidebar
             if (toggleBtn) {
                 toggleBtn.addEventListener('click', function () {
                     sidebar.classList.toggle('collapsed');
 
-                    // Thay đổi icon của nút
+                    const toggleBtnIcon = toggleBtn.querySelector('i');
                     if (sidebar.classList.contains('collapsed')) {
                         toggleBtnIcon.classList.remove('fa-chevron-left');
                         toggleBtnIcon.classList.add('fa-chevron-right');
@@ -363,6 +357,17 @@
                         toggleBtnIcon.classList.remove('fa-chevron-right');
                         toggleBtnIcon.classList.add('fa-chevron-left');
                     }
+                });
+            }
+
+            // Xử lý sự kiện khi modal được hiển thị và ẩn đi
+            if (contributionModal && toggleBtn) {
+                contributionModal.addEventListener('show.bs.modal', function () {
+                    toggleBtn.style.zIndex = '0'; // Đưa nút ra phía sau khi modal mở
+                });
+
+                contributionModal.addEventListener('hidden.bs.modal', function () {
+                    toggleBtn.style.zIndex = '1100'; // Đưa nút về phía trước khi modal đóng
                 });
             }
         });
