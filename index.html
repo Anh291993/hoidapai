@@ -222,6 +222,24 @@
             50% { transform: scale(1.1); opacity: 0.7; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* === CSS MỚI CHO POPUP (MODAL) === */
+        #contributionModal .modal-dialog {
+            max-width: 80%; /* Chiều rộng của popup */
+            height: 90vh; /* Chiều cao của popup */
+        }
+        #contributionModal .modal-content {
+            height: 100%;
+        }
+        #contributionModal .modal-body {
+            padding: 0;
+            overflow: hidden;
+        }
+        #contributionIframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -248,8 +266,9 @@
             <div class="bottom-nav">
                 <hr class="text-secondary d-none d-md-block">
                 <nav class="nav flex-column mt-auto d-none d-md-block">
-                     <a class="nav-link" href="https://n8nhome.chatpro.io.vn/form/cca250a0-16f5-44c8-9d88-8d87ec87ec68">
-                         <i class="fas fa-cog fa-fw"></i> <span>Đóng góp kinh nghiệm</span></a>
+                     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contributionModal">
+                         <i class="fas fa-feather-alt fa-fw"></i> <span>Đóng góp kinh nghiệm</span>
+                    </a>
                      <a class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> <span>Đăng xuất</span></a>
                 </nav>
             </div>
@@ -257,7 +276,7 @@
 
         <div class="chat-area">
             <div id="logo-container">
-                <img src='https://i.postimg.cc/7YJsz2XF/Picture1.png' border='0' alt='Picture1'/></a>
+                <img src='https://i.postimg.cc/7YJsz2XF/Picture1.png' border='0' alt='Picture1'/>
             </div>
             <div class="mobile-header p-2 d-flex justify-content-between align-items-center d-md-none">
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
@@ -298,22 +317,29 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body sidebar-nav" id="chat-list-mobile">
-            <button class="btn btn-outline-light w-100 mb-3 disabled" aria-disabled="true">
-                <i class="fas fa-plus me-2"></i>New Chat (TBD)
-            </button>
-            <nav class="nav flex-column">
-                <a class="nav-link chat-topic-link" href="#" data-webhook-url="https://n8nhome.chatpro.io.vn/webhook/hoi-dap-kinh-nghiem-van-hanh">
-                    <i class="fas fa-clipboard-list fa-fw"></i> <span>Kinh nghiệm vận hành nghề thí nghiệm</span>
-                </a>
-                </nav>
             <hr class="text-secondary">
             <nav class="nav flex-column mt-auto">
-                 <a class="nav-link" href="https://n8nhome.chatpro.io.vn/form/cca250a0-16f5-44c8-9d88-8d87ec87ec68">
-                         <i class="fas fa-cog fa-fw"></i> <span>Đóng góp kinh nghiệm</span></a>
+                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contributionModal">
+                         <i class="fas fa-feather-alt fa-fw"></i> <span>Đóng góp kinh nghiệm</span></a>
                  <a class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> Đăng xuất</a>
             </nav>
         </div>
     </div>
+
+    <div class="modal fade" id="contributionModal" tabindex="-1" aria-labelledby="contributionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contributionModalLabel">Đóng góp kinh nghiệm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="contributionIframe" src="https://n8nhome.chatpro.io.vn/form/cca250a0-16f5-44c8-9d88-8d87ec87ec68" title="Form Đóng góp kinh nghiệm"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
@@ -325,18 +351,20 @@
             const toggleBtn = document.getElementById('sidebar-toggle-btn');
             const toggleBtnIcon = toggleBtn.querySelector('i');
 
-            toggleBtn.addEventListener('click', function () {
-                sidebar.classList.toggle('collapsed');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.toggle('collapsed');
 
-                // Thay đổi icon của nút
-                if (sidebar.classList.contains('collapsed')) {
-                    toggleBtnIcon.classList.remove('fa-chevron-left');
-                    toggleBtnIcon.classList.add('fa-chevron-right');
-                } else {
-                    toggleBtnIcon.classList.remove('fa-chevron-right');
-                    toggleBtnIcon.classList.add('fa-chevron-left');
-                }
-            });
+                    // Thay đổi icon của nút
+                    if (sidebar.classList.contains('collapsed')) {
+                        toggleBtnIcon.classList.remove('fa-chevron-left');
+                        toggleBtnIcon.classList.add('fa-chevron-right');
+                    } else {
+                        toggleBtnIcon.classList.remove('fa-chevron-right');
+                        toggleBtnIcon.classList.add('fa-chevron-left');
+                    }
+                });
+            }
         });
     </script>
 </body>
