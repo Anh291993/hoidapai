@@ -251,7 +251,7 @@ function setActiveChat(linkElement) {
     currentWebhookUrl = webhookUrl;
     console.log(`New session for topic "${topicName}" started. ID: ${currentSessionId}, URL: ${currentWebhookUrl}`);
     if (chatBox) chatBox.innerHTML = '';
-    addChatMessage('assistant', `Bạn có thể đặt các câu hỏi liên quan đến ${topicName} như: Mạch nhị thứ, hệ thống rowle bảo vệ, hệ thống SCADA, quy định an toàn khi công tác, tiêu chuẩn IEC, Modbus...`);
+    addChatMessage('assistant', `Bạn có thể đặt các câu hỏi liên quan đến ${topicName} như: Mạch nhị thứ, hệ thống relay bảo vệ, hệ thống SCADA, quy định an toàn khi công tác, tiêu chuẩn IEC, Modbus...`);
     if (chatTitleDesktop) chatTitleDesktop.textContent = topicName;
     if (chatTitleMobile) chatTitleMobile.textContent = topicName;
     const allChatLinks = document.querySelectorAll('.chat-topic-link');
