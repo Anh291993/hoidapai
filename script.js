@@ -252,6 +252,7 @@ function setActiveChat(linkElement) {
     console.log(`New session for topic "${topicName}" started. ID: ${currentSessionId}, URL: ${currentWebhookUrl}`);
     if (chatBox) chatBox.innerHTML = '';
     addChatMessage('assistant', `Bắt đầu chat về chủ đề: ${topicName}.`);
+    addChatMessage('assistant', `Bạn có thể đặt các câu hỏi liên quan đến kinh nghiệm vận hành như: Mạch nhị thứ, hệ thống rowle bảo vệ, hệ thống SCADA, quy định an toàn khi công tác, tiêu chuẩn IEC, Modbus...`);
     if (chatTitleDesktop) chatTitleDesktop.textContent = topicName;
     if (chatTitleMobile) chatTitleMobile.textContent = topicName;
     const allChatLinks = document.querySelectorAll('.chat-topic-link');
