@@ -354,8 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // <<< HÀM MỚI ĐỂ XỬ LÝ MODAL ĐĂNG NHẬP >>>
 function initializeLoginModal() {
     // --- CẤU HÌNH CHO PHẦN ĐĂNG NHẬP ---
-    const CORRECT_USERNAME = 'doithinghiemx6'; // <-- THAY TÀI KHOẢN TẠI ĐÂY
-    const CORRECT_PASSWORD = '123'; // <-- THAY MẬT KHẨU TẠI ĐÂY
+    const CORRECT_USERNAME = doithinghiemx6; // <-- THAY TÀI KHOẢN TẠI ĐÂY
+    const CORRECT_PASSWORD = 123; // <-- THAY MẬT KHẨU TẠI ĐÂY
     const TARGET_URL = 'https://docs.google.com/spreadsheets/d/1CEmXxfFFjmxcIadmYT1iPRQ8WER_QDBDCf0X-dADHKo/edit?gid=0#gid=0'; // <-- THAY LINK GOOGLE SHEET CỦA BẠN VÀO ĐÂY
 
     // Lấy các element của modal
