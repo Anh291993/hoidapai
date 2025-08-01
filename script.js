@@ -345,4 +345,85 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
          console.error("Không tìm thấy phần tử #user-input.");
     }
+    
+    // <<< LOGIC MỚI CHO MODAL ĐĂNG NHẬP >>>
+    initializeLoginModal();
 });
+
+
+// <<< HÀM MỚI ĐỂ XỬ LÝ MODAL ĐĂNG NHẬP >>>
+function initializeLoginModal() {
+    // --- CẤU HÌNH CHO PHẦN ĐĂNG NHẬP ---
+    const CORRECT_USERNAME = 'doithinghiemx6'; // <-- THAY TÀI KHOẢN TẠI ĐÂY
+    const CORRECT_PASSWORD = '123'; // <-- THAY MẬT KHẨU TẠI ĐÂY
+    const TARGET_URL = 'https://docs.google.com/spreadsheets/d/1CEmXxfFFjmxcIadmYT1iPRQ8WER_QDBDCf0X-dADHKo/edit?gid=0#gid=0'; // <-- THAY LINK GOOGLE SHEET CỦA BẠN VÀO ĐÂY
+
+    // Lấy các element của modal
+    const loginModalElement = document.getElementById('loginModal');
+    const loginSubmitBtn = document.getElementById('login-submit-btn');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const errorAlert = document.getElementById('login-error-alert');
+
+    // Kiểm tra các element có tồn tại không
+    if (!loginModalElement || !loginSubmitBtn || !usernameInput || !passwordInput || !errorAlert) {
+        console.error("Một hoặc nhiều thành phần của modal đăng nhập không tồn tại. Vui lòng kiểm tra lại HTML.");
+        return;
+    }
+
+    const loginModal = new bootstrap.Modal(loginModalElement);
+
+    // Hàm xử lý đăng nhập
+    const handleLogin = () => {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+            // Đăng nhập thành công
+            errorAlert.classList.add('d-none'); // Ẩn thông báo lỗi (nếu có)
+            
+            // Mở link trong tab mới
+            window.open(TARGET_URL, '_blank');
+            
+            // Đóng modal
+            loginModal.hide();
+        } else {
+            // Đăng nhập thất bại
+            errorAlert.textContent = 'Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.';
+            errorAlert.classList.remove('d-none'); // Hiện thông báo lỗi
+        }
+    };
+
+    // Gán sự kiện click cho nút "Đăng nhập"
+    loginSubmitBtn.addEventListener('click', handleLogin);
+    
+    // Cho phép nhấn Enter để đăng nhập
+    passwordInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleLogin();
+        }
+    });
+
+    // Reset form khi modal được đóng
+    loginModalElement.addEventListener('hidden.bs.modal', () => {
+        usernameInput.value = '';
+        passwordInput.value = '';
+        errorAlert.classList.add('d-none');
+    });
+
+    // ⚠️ CẢNH BÁO BẢO MẬT
+    console.warn(
+        'CẢNH BÁO BẢO MẬT: Chức năng đăng nhập này chỉ mang tính trình diễn. ' +
+        'Lưu trữ tài khoản và mật khẩu trực tiếp trong mã JavaScript ở phía client là KHÔNG an toàn và dễ dàng bị đánh cắp. ' +
+        'Đối với ứng dụng thực tế, hãy sử dụng hệ thống xác thực phía máy chủ (backend).'
+    );
+}
+
+// Cần phải xóa hàm preprocessMarkdown và gọi hàm đó trong addChatMessage
+// vì nó không được định nghĩa
+function preprocessMarkdown(text) {
+    // Hàm này dùng để sửa lỗi markdown nếu cần
+    // Ví dụ: Đảm bảo có khoảng trắng sau dấu gạch đầu dòng
+    return text.replace(/(\n|^)-/g, '$1- ');
+}
