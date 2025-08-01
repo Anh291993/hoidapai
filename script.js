@@ -350,12 +350,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeLoginModal();
 });
 
+// <<< DÁN TOÀN BỘ ĐOẠN NÀY VÀO CUỐI FILE script.js CỦA BẠN >>>
 
-// <<< HÀM MỚI ĐỂ XỬ LÝ MODAL ĐĂNG NHẬP >>>
+// HÀM MỚI ĐỂ XỬ LÝ MODAL ĐĂNG NHẬP
 function initializeLoginModal() {
     // --- CẤU HÌNH CHO PHẦN ĐĂNG NHẬP ---
-    const CORRECT_USERNAME = doithinghiemx6; // <-- THAY TÀI KHOẢN TẠI ĐÂY
-    const CORRECT_PASSWORD = 123; // <-- THAY MẬT KHẨU TẠI ĐÂY
+    const CORRECT_USERNAME = 'admin'; // <-- THAY TÀI KHOẢN TẠI ĐÂY
+    const CORRECT_PASSWORD = 'password123'; // <-- THAY MẬT KHẨU TẠI ĐÂY
     const TARGET_URL = 'https://docs.google.com/spreadsheets/d/1CEmXxfFFjmxcIadmYT1iPRQ8WER_QDBDCf0X-dADHKo/edit?gid=0#gid=0'; // <-- THAY LINK GOOGLE SHEET CỦA BẠN VÀO ĐÂY
 
     // Lấy các element của modal
@@ -367,7 +368,7 @@ function initializeLoginModal() {
 
     // Kiểm tra các element có tồn tại không
     if (!loginModalElement || !loginSubmitBtn || !usernameInput || !passwordInput || !errorAlert) {
-        console.error("Một hoặc nhiều thành phần của modal đăng nhập không tồn tại. Vui lòng kiểm tra lại HTML.");
+        console.error("Lỗi: Không tìm thấy các thành phần của modal đăng nhập. Vui lòng kiểm tra lại ID trong file HTML.");
         return;
     }
 
@@ -376,11 +377,12 @@ function initializeLoginModal() {
     // Hàm xử lý đăng nhập
     const handleLogin = () => {
         const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
+        const password = passwordInput.value; // Không trim mật khẩu
 
         if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+            console.log("Đăng nhập thành công! Đang chuyển hướng tới:", TARGET_URL);
             // Đăng nhập thành công
-            errorAlert.classList.add('d-none'); // Ẩn thông báo lỗi (nếu có)
+            errorAlert.classList.add('d-none'); 
             
             // Mở link trong tab mới
             window.open(TARGET_URL, '_blank');
@@ -388,16 +390,17 @@ function initializeLoginModal() {
             // Đóng modal
             loginModal.hide();
         } else {
+            console.log("Đăng nhập thất bại. Tài khoản hoặc mật khẩu không đúng.");
             // Đăng nhập thất bại
-            errorAlert.textContent = 'Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.';
-            errorAlert.classList.remove('d-none'); // Hiện thông báo lỗi
+            errorAlert.textContent = 'Tài khoản hoặc mật khẩu không chính xác.';
+            errorAlert.classList.remove('d-none');
         }
     };
 
     // Gán sự kiện click cho nút "Đăng nhập"
     loginSubmitBtn.addEventListener('click', handleLogin);
     
-    // Cho phép nhấn Enter để đăng nhập
+    // Cho phép nhấn Enter ở ô mật khẩu để đăng nhập
     passwordInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
@@ -412,18 +415,14 @@ function initializeLoginModal() {
         errorAlert.classList.add('d-none');
     });
 
-    // ⚠️ CẢNH BÁO BẢO MẬT
+    // Cảnh báo bảo mật
     console.warn(
-        'CẢNH BÁO BẢO MẬT: Chức năng đăng nhập này chỉ mang tính trình diễn. ' +
-        'Lưu trữ tài khoản và mật khẩu trực tiếp trong mã JavaScript ở phía client là KHÔNG an toàn và dễ dàng bị đánh cắp. ' +
-        'Đối với ứng dụng thực tế, hãy sử dụng hệ thống xác thực phía máy chủ (backend).'
+        'CẢNH BÁO BẢO MẬT: Chức năng đăng nhập này chỉ mang tính trình diễn và không an toàn cho môi trường thực tế.'
     );
 }
 
-// Cần phải xóa hàm preprocessMarkdown và gọi hàm đó trong addChatMessage
-// vì nó không được định nghĩa
+
+// HÀM PHỤ TRỢ (cần có để không gây lỗi)
 function preprocessMarkdown(text) {
-    // Hàm này dùng để sửa lỗi markdown nếu cần
-    // Ví dụ: Đảm bảo có khoảng trắng sau dấu gạch đầu dòng
     return text.replace(/(\n|^)-/g, '$1- ');
 }
