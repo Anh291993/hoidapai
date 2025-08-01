@@ -414,11 +414,6 @@ function initializeLoginModal() {
         passwordInput.value = '';
         errorAlert.classList.add('d-none');
     });
-
-    // Cảnh báo bảo mật
-    console.warn(
-        'CẢNH BÁO BẢO MẬT: Chức năng đăng nhập này chỉ mang tính trình diễn và không an toàn cho môi trường thực tế.'
-    );
 }
 
 
