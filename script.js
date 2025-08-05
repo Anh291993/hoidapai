@@ -119,8 +119,7 @@ function addChatMessage(sender, text) {
         // Convert text to structured HTML for better display
         let htmlContent = '';
         if (typeof marked === 'function') {
-            const correctedMarkdown = preprocessMarkdown(text);
-            htmlContent = marked.parse(correctedMarkdown);
+            htmlContent = marked.parse(text);
             // Enhance list styling to match the image
             htmlContent = htmlContent.replace(/<li>/g, '<li style="margin-bottom: 0.5rem;">• ');
         } else {
@@ -421,3 +420,4 @@ function initializeLoginModal() {
 function preprocessMarkdown(text) {
     return text.replace(/(\n|^)-/g, '$1- ');
 }
+
